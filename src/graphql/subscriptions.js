@@ -6,6 +6,7 @@ export const onCreateRestaurant = `subscription OnCreateRestaurant {
     id
     clientId
     name
+    type
     description
     city
   }
@@ -16,6 +17,7 @@ export const onUpdateRestaurant = `subscription OnUpdateRestaurant {
     id
     clientId
     name
+    type
     description
     city
   }
@@ -26,6 +28,7 @@ export const onDeleteRestaurant = `subscription OnDeleteRestaurant {
     id
     clientId
     name
+    type
     description
     city
   }

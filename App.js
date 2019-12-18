@@ -5,7 +5,7 @@ Amplify.configure(config)
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 import { withAuthenticator } from 'aws-amplify-react-native'
-import { Auth, API, graphqlOperation  } from 'aws-amplify'
+import { Auth, API, graphqlOperation, Analytics, Storage } from 'aws-amplify'
 
 import { listRestaurants } from './src/graphql/queries'
 import { createRestaurant } from './src/graphql/mutations'
@@ -14,19 +14,37 @@ import uuid from 'uuid/v4'
 const CLIENTID = uuid()
 
 class App extends React.Component {
-  state = {
-    coins: []
-  }
+  
+  state = {username: ''}
+  
   async componentDidMount() {
     try {
-      // to get all coins, do not send in a query parameter
-      // const data = await API.get('cryptoapi', '/coins')
-      const data = await API.get('cryptoapi', '/coins?limit=5&start=100')
-      console.log('data from Lambda REST API: ', data)
-      this.setState({ coins: data.coins })
+      const user = await Auth.currentAuthenticatedUser()
+      this.setState({ username: user.username })
     } catch (err) {
-      console.log('error fetching data..', err)
+      console.log('error getting user: ', err)
     }
+  }
+  recordEvent = () => {
+    Analytics.record({
+      name: 'My test event',
+      attributes: {
+        username: this.state.username
+      }
+    })
+  }
+  addToStorage = () => {
+    Storage.put('textfiles/mytext.txt', `Hello World`)
+      .then (result => {
+        console.log('result: ', result)
+      })
+      .catch(err => console.log('error: ', err));
+  }
+
+  readFromStorage = () => {
+    Storage.list('')
+      .then(data => console.log('data from S3: ', data))
+      .catch(err => console.log('error fetching from S3', err))
   }
   
   // signOut = () => {
@@ -37,14 +55,9 @@ class App extends React.Component {
   render() {
     return (
       <View>
-        {
-          this.state.coins.map((c, i) => (
-            <View key={i} style={styles.row}>
-              <Text style={styles.name}>{c.name}</Text>
-              <Text>{c.price_usd}</Text>
-            </View>
-          ))
-        }
+        
+      <Button onPress={this.recordEvent} title='Record Event' />
+      <Button onPress={this.addToStorage} title='Add to Storage' />
       </View>
     )
   }

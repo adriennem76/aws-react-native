@@ -62,7 +62,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-rnamplify-dev-132526-deployment",
+					"S3Bucket": "amplify-rnamplify-apiupdate-151337-deployment",
 					"S3Key": "amplify-builds/cryptofunction-30336b7052674d58592b-build.zip"
 				}
 			}

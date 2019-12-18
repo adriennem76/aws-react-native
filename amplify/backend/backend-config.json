@@ -49,5 +49,17 @@
 			"providerPlugin": "awscloudformation",
 			"build": true
 		}
+	},
+	"analytics": {
+		"amplifyanalytics": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"storage": {
+		"rnworkshopstorage": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
 	}
 }

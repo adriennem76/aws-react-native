@@ -9,6 +9,7 @@ export const createRestaurant = `mutation CreateRestaurant(
     id
     clientId
     name
+    type
     description
     city
   }
@@ -22,6 +23,7 @@ export const updateRestaurant = `mutation UpdateRestaurant(
     id
     clientId
     name
+    type
     description
     city
   }
@@ -35,6 +37,7 @@ export const deleteRestaurant = `mutation DeleteRestaurant(
     id
     clientId
     name
+    type
     description
     city
   }

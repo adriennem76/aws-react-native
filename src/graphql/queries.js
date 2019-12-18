@@ -1,11 +1,26 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const listAllRestaurants = `query ListAllRestaurants($limit: Int, $nextToken: String) {
+  listAllRestaurants(limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      clientId
+      name
+      type
+      description
+      city
+    }
+    nextToken
+  }
+}
+`;
 export const getRestaurant = `query GetRestaurant($id: ID!) {
   getRestaurant(id: $id) {
     id
     clientId
     name
+    type
     description
     city
   }
@@ -21,6 +36,7 @@ export const listRestaurants = `query ListRestaurants(
       id
       clientId
       name
+      type
       description
       city
     }
